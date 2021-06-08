@@ -1,11 +1,12 @@
-<h1 align="center">
-<img width="40" valign="bottom" src="https://ultimatecourses.com/static/icons/typescript.svg">
-Node.js + TypeScript + Express starter
-</h1>
-<h4 align="center">A minimal starter project to write your Node.js apps in TypeScript, complete with local and production build scripts. <a href="https://ultimatecourses.com/courses/typescript" target="_blank">Learn more TypeScript</a> with us if you enjoyed!</h4>
+This project was bootstrapped using Node.js + TypeScript + Express
 
----
+## Getting Started
 
-<div align="center">
-<a href="https://ultimatecourses.com/courses/typescript" target="_blank"><img width="100%" src="https://ultimatecourses.com/static/banners/ultimate-typescript-leader.svg"></a>
-</div>
+In the project directory, you can run:
+
+### `npm run serve`
+
+Runs the app in the development mode at [http://localhost:3000](http://localhost:3000).
+
+The server will reload if you make edits.<br />
+You will also see any lint or type errors in the console.
