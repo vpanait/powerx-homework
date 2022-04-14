@@ -1,7 +1,7 @@
-import express, { Express } from "express";
-import helmet from "helmet";
-import dotenv from "dotenv";
-import { checkPassword } from "./auth";
+import express, { Express } from 'express';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+import { addReading, getReading } from './database';
 
 dotenv.config();
 
@@ -9,26 +9,25 @@ const PORT = process.env.PORT || 3000;
 const app: Express = express();
 
 app.use(helmet());
-app.use(express.json());
+app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/auth/credentials", async (req, res) => {
-  const { username, password } = req.body;
-  const result = await checkPassword(username, password);
+app.post('/data', async (req, res) => {
+  // TODO: parse incoming data, and save it to the database
+  // data is of the form:
+  //  {timestamp} {name} {value}
 
-  // TODO: provide token(s) for the client to use
+  // addReading(...)
+
   return res.json({ success: false });
 });
 
-app.get("/auth/refresh", async (req, res) => {
-  // TODO: check the request is authorized and provide token(s)
+app.get('/data', async (req, res) => {
+  // TODO: check what dates have been requested, and retrieve all data within the given range
+
+  // getReading(...)
+
   return res.json({ success: false });
 });
 
-app.get("/api/whoami", (req, res) => {
-  // TODO: check the request was authenticated, and display correct username
-  const username = "TODO";
-  res.json({ username });
-});
-
-app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
+app.listen(PORT, () => console.log(`Running on port ${PORT} ⚡`));
