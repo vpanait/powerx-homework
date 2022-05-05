@@ -1,22 +1,34 @@
-interface Reading {
-  // TODO: change this to contain whatever information is needed
-}
+import { Reading } from "./types";
+import { getDuplicateKeys } from "./helpers";
 
-// This is a fake database which stores data in-memory while the process is running
-// Feel free to change the data structure to anything else you would like
-const database: Record<string, Reading> = {};
+let database: Record<string, Reading> = {};
 
 /**
- * Store a reading in the database using the given key
+ * Store multiple readings in the database
  */
-export const addReading = (key: string, reading: Reading): Reading => {
-  database[key] = reading;
-  return reading;
+export const addBulkReadings = (
+  readings: Record<string, Reading>
+): Record<string, Reading> => {
+  // To be decided if overwrite or ignore duplicates / I went for option 1
+  const duplicates = getDuplicateKeys(database, readings);
+  if (duplicates.length) {
+    console.warn(">> batch has the following duplicate keys:", duplicates);
+  }
+
+  database = { ...database, ...readings };
+
+  return readings;
 };
 
 /**
  * Retrieve a reading from the database using the given key
  */
-export const getReading = (key: string): Reading | undefined => {
-  return database[key];
+export const getReadings = (
+  fromTs: number,
+  toTs: number
+): Reading[] | undefined => {
+  const databaseEntries = Object.values(database);
+  return databaseEntries?.filter(
+    (entry) => fromTs <= entry.ts && toTs >= entry.ts
+  );
 };
